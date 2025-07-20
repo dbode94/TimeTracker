@@ -1,0 +1,227 @@
+html{
+    height: 100%;
+}
+body{
+    background-color:#1E1E2E;
+    color: #F5F5F5;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.appContainer{
+    display: flex;
+    height: 100vh;
+    contain: content;
+    
+    letter-spacing: 1px;
+}
+
+
+/* Left side of the app */
+.listContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20vw;
+    height: 100vh;
+    padding-top: 20px;
+    box-sizing: border-box;
+    background-color: #14141f;
+    border-right: 0.5px solid #94E2D5;
+}
+
+label{
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #e2dd94;
+    margin-bottom: 10px;
+    padding-left: 15px;
+}
+
+#addTimer{
+    background-color: #14141f;
+    color: #e2dd94;
+    border-color: #e2dd94;
+    border-radius: 5px;
+    padding: 2px 10px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 10pt;
+    margin: 0px 30px;
+}
+#addTimer:hover{
+    cursor: pointer;
+    background-color: #232330;
+}
+
+#list{
+    list-style: none;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto; 
+    font-style: normal;
+    padding: 0px;
+}
+
+li{
+    cursor: pointer;
+    padding-left: 30px;
+    padding-bottom: 15px;
+}
+
+li:hover{
+    background-color: #232330;
+}
+
+
+li p{
+    margin: 0px;
+    pointer-events: none;
+}
+
+.totalTime{
+    font-size: 9pt;
+    margin-left: 20px;
+    padding: 2px 4px;
+    width: fit-content;
+    background-color: #e2dd94;
+    color: #14141f;
+    border-radius: 3px;
+}
+
+/* right side of the app */
+.timerContainer{
+    width: 80vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h2{
+    text-decoration: underline;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    color: #F5F5F5;
+    margin: 0px;
+    color: #e2dd94;
+}
+
+h5 {
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    color: #F5F5F5;
+    margin: 0px;
+    margin-top: 10px;
+    color: #e2dd94;
+}
+
+
+.clock{
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50pt;
+    color: #F5F5F5;
+    text-shadow: 4px 4px 5px gainsboro;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.positiveButton{
+    padding: 10px 15px;
+    background-color: #94E2D5;
+    color: #1E1E2E ;
+    border-radius: 5px;
+    font-size: 16pt;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.positiveButton:hover{
+    background-color: #1E1E2E;
+    color: #94E2D5 ;
+    border-color: #94E2D5;
+}
+
+
+.negativeButton{
+    padding: 10px 15px;
+    background-color: transparent;
+    border-color: #F38BA8;
+    color: #F38BA8 ;
+    border-radius: 5px;
+    font-size: 16pt;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.negativeButton:hover{
+    background-color: #F38BA8;
+    color: #1E1E2E ;
+    border-color: inherit;
+}
+
+footer{
+    margin-top: 50px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 9pt;
+}
+
+/* floating on right */
+#help{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-family: "Orbitron", sans-serif;
+    color: #e2dd94;
+    border: 1px solid #e2dd94;
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+
+#help:hover{
+    cursor: pointer;
+    background-color: #e2dd94;
+    color: #1E1E2E;
+}
+
+#helpText{
+    position: absolute;
+    top: 60px;
+    right: 70px;
+    width: 150px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 9pt;
+    padding: 5px 10px;
+    border: 1px solid #e2dd94;
+    border-radius: 10px 0px 10px 10px;
+    line-height: 15px;
+    background-color: #27273b;
+}
+
+.hide {
+    margin: 0px;
+    position: absolute;
+    visibility: hidden;
+}
+
+

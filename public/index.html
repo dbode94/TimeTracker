@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Tracker</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+<body>
+    <div class="appContainer">
+        <div class="listContainer">
+            <label for="list">Timers:</label>
+            <ul id="list">
+                <li>
+                    <p><strong>>> </strong>Report Tracker</p>
+                    <p class="totalTime">total: 250h</p>
+                </li>
+                <li>
+                    <p><strong>>> </strong>Portfolio</p>
+                    <p class="totalTime">total: 10h</p>
+                </li>
+                <li>
+                    <p><strong>>> </strong>.Net Project</p>
+                    <p class="totalTime">total: 30h</p>
+                </li>
+                <li>
+                    <p><strong>>> </strong>Time Tracker</p>
+                    <p class="totalTime">total: 50h</p>
+                </li>
+                <li>
+                    <p><strong>>> </strong>This is a really long Name and should not fit</p>
+                    <p class="totalTime">total: 50h</p>
+                </li>
+            </ul>
+            <button id="addTimer">Add new timer</button>
+        </div>
+        <div class="timerContainer">
+            <h2 id="currentTimerName">No timer selected yet :(</h2>
+            <h5 id="warningMessage">Please select or create a new timer</h5>
+            <div class="clockContainer">
+                <p class="clock">00:00:00</p>
+            </div>
+            <div class="buttonContainer">
+                <button class="positiveButton">Start</button>
+                <!-- <button class="positiveButton">Pause</button> -->
+                <button class="negativeButton">Stop</button>
+            </div>
+            <footer>Made with ❤️ by DNIS.</footer>
+        </div>
+        <div id="help">
+            ?
+        </div>
+        <div id="helpText" class="hide">
+            <p>
+                Select timer from the list on the left before starting the clock. If there isn't a timer available you can create one by hitting the "Add new timer" button below the list section.
+                <br>
+                <br>
+                <strong>START/PAUSE</strong> button will not save the time. To do so, use the <strong>STOP</strong> button.
+            </p>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
