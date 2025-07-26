@@ -224,4 +224,34 @@ footer{
     visibility: hidden;
 }
 
+.grayOut{
+    background-color: lightgray;
+    background-color: lightgray;
+    cursor: default;
+    border: lightgray;
+    color: gray;
+    pointer-events: none;
+
+}
+
+.grayOut:hover{
+    background-color: lightgray;
+    cursor: default;
+    border: lightgray;
+    color: gray;
+}
+
+.beat {
+  animation: beat 1s infinite;
+  transform-origin: center;
+}
+
+@keyframes beat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
 
