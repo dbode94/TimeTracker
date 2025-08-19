@@ -66,6 +66,8 @@ let addTimer = document.getElementById('addTimer');
 let clock = document.getElementById('clock');
 let start = document.getElementById('start_pause');
 let stop = document.getElementById('stop');
+let alert = document.getElementById('alert');
+let alertButton = document.getElementById('alertButton');
 let hadPrevTimer = false;
 let prevSelTimer = '';
 let sWatch = new StopWatch();
@@ -139,12 +141,19 @@ let timersOnClickHandler = (e) => {
         prevSelTimer.style.fontWeight = 'bold';
         
         header.innerText = curTimerName;
-    } else {
-        alert("Timer is running, please stop it before changing to another")
-    }
+    } else showAlert();
 
 }
 
+let showAlert = () => {
+    alert.classList.remove('hide');
+    alert.classList.add('flick');
+}
+
+let closeAlertHandler = () => {
+    alert.classList.add('hide');
+    alert.classList.remove('flick');
+}
 
 let showHelpHandler = (e) => {
     helpText.classList.remove('hide');
@@ -208,4 +217,5 @@ help.addEventListener('mouseout', hideHelpHandler);
 addTimer.addEventListener('click', addTimerHandler);
 start.addEventListener('click', startPauseHandler);
 stop.addEventListener('click', stopHandler);
+alertButton.addEventListener('click', closeAlertHandler);
 

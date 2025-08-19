@@ -40,6 +40,11 @@
             <button id="addTimer">Add new timer</button>
         </div>
         <div class="timerContainer">
+            <div id="alert" class="hide">
+                <h2>Warning</h2>
+                <p>Timer is running, please stop it before changing to another</p>
+                <button class="positiveButton" id="alertButton">Ok</button>
+            </div>
             <h2 id="currentTimerName">No timer selected yet :(</h2>
             <h5 id="warningMessage">Please select or create a new timer</h5>
             <div class="clockContainer">
@@ -47,7 +52,6 @@
             </div>
             <div class="buttonContainer">
                 <button class="positiveButton grayOut" id="start_pause">Start</button>
-                <!-- <button class="positiveButton">Pause</button> -->
                 <button class="negativeButton grayOut" id="stop">Stop</button>
             </div>
             <footer>Made with ❤️ by DNIS.</footer>
