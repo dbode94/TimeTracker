@@ -63,6 +63,7 @@ let timers = document.getElementById('list').getElementsByTagName('li');
 let help = document.getElementById('help');
 let helpText = document.getElementById('helpText');
 let addTimer = document.getElementById('addTimer');
+let addTimerText = document.getElementById('addTimerText');
 let clock = document.getElementById('clock');
 let start = document.getElementById('start_pause');
 let stop = document.getElementById('stop');
@@ -168,8 +169,20 @@ TODO:
     1- Call add timer API                                                                   ❌
 */
 let addTimerHandler = (e) => {
-    console.log('adding a timer')
+    if(e.key == 'Enter')
+        console.log('Enter pressed')
+}
 
+addTimerFocushandler = (e) =>{
+    if(e.type == 'focusin') {
+        addTimerText.classList.remove('moveUp')
+        addTimerText.classList.add('moveDown')
+    }
+    else{
+        addTimerText.classList.remove('moveDown')
+        addTimerText.classList.add('moveUp')
+        addTimer.value = '';
+    }
 }
 
 let startPauseHandler = () => {
@@ -214,7 +227,9 @@ for (let i = 0; i < timers.length; i++)
 
 help.addEventListener('mouseover', showHelpHandler);
 help.addEventListener('mouseout', hideHelpHandler);
-addTimer.addEventListener('click', addTimerHandler);
+addTimer.addEventListener('keydown', addTimerHandler);
+addTimer.addEventListener('focusin', addTimerFocushandler);
+addTimer.addEventListener('focusout', addTimerFocushandler);
 start.addEventListener('click', startPauseHandler);
 stop.addEventListener('click', stopHandler);
 alertButton.addEventListener('click', closeAlertHandler);

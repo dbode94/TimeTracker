@@ -37,7 +37,10 @@
                     <p class="totalTime">total: 50h</p>
                 </li>
             </ul>
-            <button id="addTimer">Add new timer</button>
+            <div class="addTimerContainer">
+                <input id="addTimer" type="text" placeholder="Add new timer">
+                <p id="addTimerText">Press 'Enter' to save</p>
+            </div>
         </div>
         <div class="timerContainer">
             <div id="alert" class="hide">
@@ -61,10 +64,10 @@
         </div>
         <div id="helpText" class="hide">
             <p>
-                Select timer from the list on the left before starting the clock. If there isn't a timer available you can create one by hitting the "Add new timer" button below the list section.
+                Select timer from the list on the left before starting the clock. If there isn't a timer available you can create one by entering the new timer name at "Add new timer" input box below the list section.
                 <br>
                 <br>
-                <strong>START/PAUSE</strong> button will not save the time. To do so, use the <strong>STOP</strong> button.
+                <strong>START/PAUSE</strong> button will not save the time elapsed. To do so, use the <strong>STOP</strong> button.
             </p>
         </div>
     </div>
