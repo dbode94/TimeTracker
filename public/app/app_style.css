@@ -13,7 +13,6 @@ body{
     display: flex;
     height: 100vh;
     contain: content;
-    
     letter-spacing: 1px;
 }
 

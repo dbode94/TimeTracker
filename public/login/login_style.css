@@ -1,0 +1,89 @@
+html{
+    height: 100%;
+}
+
+body{
+    background-color:#1E1E2E;
+    color: #F5F5F5;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.loginContainer{
+    border: 1px solid #e2dd94;
+    border-radius: 10px;
+    background-color: #14141f;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 350px;
+    width: 300px;
+    box-shadow: 5px 5px 15px #e2dd94;
+}
+
+h2{
+    text-decoration: underline;
+    margin: 2px;
+}
+
+.logoContiner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    /* border: 2.5px solid #94E2D5; */
+    /* border-radius: 50px; */
+    /* width: 60px;
+    height: 60px; */
+    font-size: 25pt;
+}
+
+.inputContainerStyle{
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    font-size: 10pt;
+    width: 80%;
+}
+
+.loginOptionContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px
+}
+
+button{
+    cursor: pointer;
+}
+
+input{
+    border: none;
+    font-size: 11pt;
+    font-family: "Orbitron", sans-serif;
+    font-style: normal;
+    padding: 5px 10px;
+    position: relative;
+}
+
+label{
+    position: absolute;
+    padding-top: 5px;
+    padding-left: 10px;
+    z-index: 1000;
+    font-size: 11pt;
+    pointer-events: none;
+}
+
+.relative{
+    position: relative;
+}
