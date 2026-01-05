@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-const express = require('express');
-const path = require('path');
+import express from "express";
+import "dotenv/config"
+import session from "express-session";
+import path from "path";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -16,18 +17,32 @@ const firebaseConfig = {
 };
 
 
-// Not needed just now
-//const analytics = getAnalytics(app);
-
 const firebase = initializeApp(firebaseConfig);
 const app = express();
 
-app.get('/', (req,res) => {
-    res.send(path.join(__dirname, 'public', 'index.html'));
-})
+app.use( session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+//Serves static files from the public folder
+app.use('/login', express.static('public//login'));
+app.use('/app', express.static('public//app'));
+
+
+//Auth Check
+function isLoggedIn(req){
+  return !!req.session?.user;
+}
+
+//Redirecting depending on Auth
+// app.get('/', (req,res) => {
+//   return isLoggedIn(req)? res.redirect('/app') : res.redirect('login');
+// })
 
 app.listen(3000, () =>{
-    console.log('app listening')
+    console.log('listening to port 3000');
 })
 
 
