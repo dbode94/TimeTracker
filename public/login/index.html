@@ -13,14 +13,18 @@
 <body>
     <div class="loginContainer">
         <h2>Login</h2>
-        <div class="logoContiner">🫡</div>
+        <div id="logoContiner">🫡</div>
         <div class="emailInputContainer inputContainerStyle">
-            <label for="email">Email:</label>
-            <input id="email" type="email">
+            <label for="email" class="inputLabel">Email:</label>
+            <input id="email" type="email" class="inputStyle">
         </div>
         <div class="passwordInputContainer inputContainerStyle">
-            <label for="password">Password:</label>
-            <input id="password" type="password">
+            <label for="password" class="inputLabel">Password:</label>
+            <input id="password" type="password" class="inputStyle">
+        </div>
+        <div class="checkboxContainer">
+            <label for="showPassword">Show password?</label>
+            <input type="checkbox" name="showPassword" id="showPasswordCB">
         </div>
         <div class="loginOptionContainer">
             <button>Log in</button>
