@@ -3,76 +3,103 @@
 //============================================================================================
 let inputs = document.getElementsByTagName('input');
 let labels = document.getElementsByTagName('label');
-let emojiDiv = document.getElementById('logoContiner');
-let showPassword = document.getElementById('showPasswordCB');
+let flipAnchors = document.getElementsByClassName('flipTrigger');
+let showPasswordLogin = document.getElementById('showPasswordCBLogin');
+let showPasswordRegister = document.getElementById('showPasswordCBRegister');
+let clearButtons = document.getElementsByClassName('clearbutton');
+
+
+//============================================================================================
+// Login State
+//============================================================================================
+let inLogin = true;
+
 
 //============================================================================================
 // Defining functions
 //============================================================================================
-const movelabelUp = (e) => {
+
+const toggleElementClass = (e, tag, className) => {
     const elementSiblings = e.target.parentElement.children
     for (let i = 0; i < elementSiblings.length; i++) {
-        if(elementSiblings[i].tagName == 'LABEL'){
-            elementSiblings[i].classList.remove('moveDown');
-            elementSiblings[i].classList.add('moveUp')
+        if(elementSiblings[i].tagName == tag.toUpperCase()){
+            elementSiblings[i].classList.toggle(className);
             break;
         }    
     }
 }
 
-const movelabelDown = (e) => {
+const addElementClass = (e, tag, className) => {
     const elementSiblings = e.target.parentElement.children
     for (let i = 0; i < elementSiblings.length; i++) {
-        if(elementSiblings[i].tagName == 'LABEL'){
-            elementSiblings[i].classList.remove('moveUp')
-            elementSiblings[i].classList.add('moveDown')
+        if(elementSiblings[i].tagName == tag.toUpperCase()){
+            elementSiblings[i].classList.add(className);
             break;
         }    
     }
 }
 
-//TODO: Make it a class with a state to handle actions better
-const changeEmojiState = (emotion) => {
-    switch (emotion) {
-        case 'surprise':
-            emojiDiv.innerText = '😱'
+const removeElementClass = (e, tag, className) => {
+    const elementSiblings = e.target.parentElement.children
+    for (let i = 0; i < elementSiblings.length; i++) {
+        if(elementSiblings[i].tagName == tag.toUpperCase()){
+            elementSiblings[i].classList.remove(className);
             break;
-
-        case 'focus':
-            emojiDiv.innerText = '🤔'
-            break;
-
-        case 'hide':
-            emojiDiv.innerText = '🫣'
-            break;
-    
-        default:
-            emojiDiv.innerText = '🫡'
-            break;
+        }    
     }
 }
+
 
 //============================================================================================
 // Defining Event Handlers
 //============================================================================================
 const checkInputState = (e) => {
     if(e.type == 'focus' && e.target.value == ''){
-        movelabelUp(e);
+        removeElementClass(e, 'LABEL', 'moveDown');
+        addElementClass(e, 'LABEL', 'moveUp');
+        addElementClass(e, 'BUTTON', 'visible');        
     }
     else if(e.type == 'blur' && e.target.value == ''){
-        movelabelDown(e);
+        removeElementClass(e, 'LABEL', 'moveUp');  
+        addElementClass(e, 'LABEL', 'moveDown');
+        removeElementClass(e, 'BUTTON', 'visible'); 
     }
 }
 
 const showPasswordHandler = (e) => {
     if(e.target.checked){
-        document.getElementById('password').type= 'text'
+        if(inLogin)
+            document.getElementById('passwordLogin').type = 'text';
+        else {
+            document.getElementById('passwordRegister1').type = 'text';
+            document.getElementById('passwordRegister2').type = 'text';
+        }
     }
     else {
-        document.getElementById('password').type= 'password'
+        if(inLogin)
+            document.getElementById('passwordLogin').type = 'password';
+        else{
+            document.getElementById('passwordRegister1').type = 'password';
+            document.getElementById('passwordRegister2').type = 'password';
+        }
     }
-
 }
+
+const flipCard = (e) => {
+    let loginContainer = document.getElementById('card');
+    loginContainer.classList.toggle('rotate')
+}
+
+const clearInputHandler = (e) => {
+    const elementSiblings = e.target.parentElement.children
+    for (let i = 0; i < elementSiblings.length; i++) 
+        if(elementSiblings[i].tagName == 'INPUT'){
+            elementSiblings[i].value = '';
+            elementSiblings[i].dispatchEvent(new FocusEvent('blur', {bubbles:false}));
+            break;
+        }    
+}
+
 //============================================================================================
 // Adding Event Listeners
 //============================================================================================
@@ -80,5 +107,18 @@ for (let i = 0; i < inputs.length; i++){
     inputs[i].addEventListener('focus', checkInputState);
     inputs[i].addEventListener('blur', checkInputState);
 }
+for (let i = 0; i < flipAnchors.length; i++){
+    flipAnchors[i].addEventListener('click', flipCard);
+    flipAnchors[i].addEventListener('click', () => {inLogin = !inLogin;});
+}
 
-showPassword.addEventListener('change', showPasswordHandler)
+for (let i = 0; i < clearButtons.length; i++)
+    clearButtons[i].addEventListener('click', clearInputHandler);
+
+
+
+showPasswordLogin.addEventListener('change', showPasswordHandler)
+showPasswordRegister.addEventListener('change', showPasswordHandler)
+
+
+
