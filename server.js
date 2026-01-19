@@ -1,11 +1,13 @@
 import "dotenv/config"
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"
+import { getFirestore, setDoc, doc } from "firebase/firestore"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
 import express from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
+
+//Importing Controllers
+import {registerUser} from "./controllers/register.js";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -32,34 +34,6 @@ const app = express();
 //============================================================================================
 function isLoggedIn(req){
   return !!req.session?.user;
-}
-
-function registerUser(req,res) {
-  const {firstName, lastName, email, password} = req.body
-  const auth = getAuth();
-  
-  const document = {
-    timers: {},
-    firstName: firstName,
-    lastName: lastName,
-    email: email
-  }
-
-  //Try to create the user authentication
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredentials) => userCredentials.user.uid)
-  .then(async (uid) => {
-    try{
-      //Due to db rules I need to sign in the new user before it can make any changes
-      await signInWithEmailAndPassword(auth, email, password)
-      //Create the user document
-      const setDocResponse = await setDoc(doc(db,"users", uid), document);
-      
-    } catch(error){
-      console.error('ERROR:', error.message)
-    }    
-  })
-  .catch((error) => {console.error('ERROR:', error.message)})
 }
 
 
@@ -91,7 +65,7 @@ app.get('/', (req,res) => {
 // Endpoints
 //============================================================================================
 app.post('/login/signin', (req, res) => {console.log(req.body); res.json('Done')})
-app.post('/login/register', (req, res) => {registerUser(req, res)})
+app.post('/login/register', (req, res) => {registerUser(db, req, res)})
 
 
 
