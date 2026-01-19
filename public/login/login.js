@@ -104,7 +104,7 @@ const clearInputHandler = (e) => {
 
 
 const loginHandler = () => {
-    fetch('http://localhost:3000/login/sigin', {
+    fetch('http://localhost:3000/login/signin', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -126,7 +126,7 @@ const registerHandler = () => {
             password: 'thisShouldBeEncrypted'
         })
     })
-    .then(res => {console.log(res)})
+    .then(res => {console.log(res.status)})
 }
 
 
