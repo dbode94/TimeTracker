@@ -78,6 +78,7 @@ h2{
     padding: 5px 10px;
     position: relative;
     background-color: transparent;
+    color: white;
 }
 
 .clearbutton{
@@ -164,10 +165,11 @@ label{
     padding: 10px 15px;
     cursor: pointer;
     background-color: #1E1E2E;
-    border: 2px solid #14141f;
+    border: 2px solid #444465;
     border-radius: 5px;
     font-size: 12pt;
     font-weight: bold;
+    color: white;
 }
 
 .loginOptionContainer button:hover{
@@ -175,8 +177,12 @@ label{
 }
 
 
-.loginOptionContainer a{
+.loginOptionContainer p{
     font-size: 9pt;
+    color: white;
+    text-decoration: underline;
+    margin: 0px;
+    cursor: pointer;
 }
 
 
