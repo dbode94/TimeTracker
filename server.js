@@ -1,13 +1,14 @@
 import "dotenv/config"
 import { initializeApp } from "firebase/app";
 import { getFirestore, setDoc, doc } from "firebase/firestore"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import express from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
 
 //Importing Controllers
 import {registerUser} from "./controllers/register.js";
+import {signinUser} from "./controllers/signin.js";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -32,9 +33,10 @@ const app = express();
 //============================================================================================
 // Controllers
 //============================================================================================
-function isLoggedIn(req){
+function isLoggedIn(req) {
   return !!req.session?.user;
 }
+
 
 
 //============================================================================================
@@ -64,7 +66,7 @@ app.get('/', (req,res) => {
 //============================================================================================
 // Endpoints
 //============================================================================================
-app.post('/login/signin', (req, res) => {console.log(req.body); res.json('Done')})
+app.post('/login/signin', (req, res) => {signinUser(db, req, res)})
 app.post('/login/register', (req, res) => {registerUser(db, req, res)})
 
 
