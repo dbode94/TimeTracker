@@ -7,6 +7,8 @@ let flipAnchors = document.getElementsByClassName('flipTrigger');
 let showPasswordLogin = document.getElementById('showPasswordCBLogin');
 let showPasswordRegister = document.getElementById('showPasswordCBRegister');
 let clearButtons = document.getElementsByClassName('clearbutton');
+let loginButton = document.getElementById('loginButton');
+let registerButton = document.getElementById('registerButton');
 
 
 //============================================================================================
@@ -100,6 +102,34 @@ const clearInputHandler = (e) => {
         }    
 }
 
+
+const loginHandler = () => {
+    fetch('http://localhost:3000/login/sigin', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            email: 'email@somewhere.com',
+            password: 'thisShouldBeEncrypted'
+        })
+    })
+    .then(res => {console.log(res)})
+}
+
+const registerHandler = () => {
+    fetch('http://localhost:3000/login/register', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            firstName: 'Dennis',
+            lastName: 'Bode',
+            email: 'email@somewhere.com',
+            password: 'thisShouldBeEncrypted'
+        })
+    })
+    .then(res => {console.log(res)})
+}
+
+
 //============================================================================================
 // Adding Event Listeners
 //============================================================================================
@@ -107,6 +137,7 @@ for (let i = 0; i < inputs.length; i++){
     inputs[i].addEventListener('focus', checkInputState);
     inputs[i].addEventListener('blur', checkInputState);
 }
+
 for (let i = 0; i < flipAnchors.length; i++){
     flipAnchors[i].addEventListener('click', flipCard);
     flipAnchors[i].addEventListener('click', () => {inLogin = !inLogin;});
@@ -115,10 +146,9 @@ for (let i = 0; i < flipAnchors.length; i++){
 for (let i = 0; i < clearButtons.length; i++)
     clearButtons[i].addEventListener('click', clearInputHandler);
 
-
-
-showPasswordLogin.addEventListener('change', showPasswordHandler)
-showPasswordRegister.addEventListener('change', showPasswordHandler)
-
+showPasswordLogin.addEventListener('change', showPasswordHandler);
+showPasswordRegister.addEventListener('change', showPasswordHandler);
+loginButton.addEventListener('click', loginHandler);
+registerButton.addEventListener('click', registerHandler);
 
 
