@@ -22,10 +22,6 @@ const firebaseConfig = {
   measurementId: process.env.FIREBASE_MEASUREMNET_ID
 };
 
-// TESTING CREDENTIALS:
-// email: dbodesosa@gmail.com
-// password: Testing@2026
-
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const app = express();

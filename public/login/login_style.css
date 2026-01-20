@@ -6,6 +6,7 @@ body{
     background-color:#1E1E2E;
     color: #F5F5F5;
     height: 100%;
+    width: 100%;
     padding: 0px;
     margin: 0px;
     display: flex;
@@ -16,6 +17,52 @@ body{
     font-style: normal;
     letter-spacing: 1px;
 }
+
+#infoWrapper{
+    position: fixed;
+    top: 25px;
+    transform: translateX(100%);
+    right: 0;
+    padding: 5px 15px;
+}
+
+.errorMessage{
+    border: 1px solid rgba(255, 170, 170, 0.85);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(255, 170, 170, 0.85);
+}
+
+.goodMessage{
+    border: 1px solid rgba(170, 255, 191, 0.85);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(170, 255, 191, 0.85);
+}
+
+.infoMessage{
+    border: 1px solid rgba(241, 255, 170, 0.85);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(241, 255, 170, 0.85);
+}
+
+.defaultMessage{
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.85);
+}
+
+#infoWrapper p {
+    font-size: 8pt;
+}
+
+.slideInLeft{
+    animation: slideInLeft 0.4s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(100%); } 
+    to { transform: translateX(2%); }
+}
+
 
 .loginContainer{
     position: relative;
@@ -56,6 +103,7 @@ h2{
     text-decoration: underline;
     margin-bottom: 10px;
 }
+
 
 .inputContainerStyle{
     display: flex;
@@ -145,12 +193,8 @@ label{
 }
 
 @keyframes moveDown {
-    0%{
-        bottom: 20px;
-    }
-    100%{
-        bottom: 2px;
-    }
+    0% { bottom: 20px; }
+    100% { bottom: 2px; }
 }
 
 .loginOptionContainer{
@@ -189,3 +233,56 @@ label{
 .visible{
     visibility: visible;
 }
+
+
+.shake-rotate {
+    animation: shake-rotate 0.35s ease-in-out;
+    transform-origin: center;
+}
+
+@keyframes shake-rotate {
+    0%   { transform: rotate(0deg); }
+    15%  { transform: rotate(-6deg); }
+    30%  { transform: rotate(6deg); }
+    45%  { transform: rotate(-4deg); }
+    60%  { transform: rotate(4deg); }
+    75%  { transform: rotate(-2deg); }
+    90%  { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.flicker-red {
+    animation: flicker-red 0.35s ease-in-out;
+}
+
+@keyframes flicker-red {
+    0%, 100% { 
+        box-shadow: 5px 5px 25px rgba(255, 60, 60, 0.9); 
+        border-color: rgba(255, 60, 60, 0.9);
+    }
+    15% { 
+        box-shadow: 5px 5px 25px rgba(255, 150, 150, 0.9); 
+        border-color: rgba(255, 150, 150, 0.9);
+    }
+    30% { 
+        box-shadow: 5px 5px 25px rgba(255, 40, 40, 0.95); 
+        border-color:  rgba(255, 40, 40, 0.95);
+    }
+    45% { 
+        box-shadow: 5px 5px 25px rgba(255, 180, 180, 0.85);
+        border-color: rgba(255, 180, 180, 0.85); 
+    }
+    60% { 
+        box-shadow: 5px 5px 25px rgba(255, 50, 50, 0.95); 
+        border-color:  rgba(255, 40, 40, 0.95);
+    }
+    75% { 
+        box-shadow: 5px 5px 25px rgba(255, 170, 170, 0.85); 
+        border-color: rgba(255, 180, 180, 0.85); 
+    }
+    90% { 
+        box-shadow: 5px 5px 25px rgba(255, 70, 70, 0.9); 
+        border-color:  rgba(255, 40, 40, 0.95);
+    }
+}
+
