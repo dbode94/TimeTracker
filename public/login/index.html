@@ -11,62 +11,67 @@
     <link rel="stylesheet" href="./login_style.css">
 </head>
 <body>
-    <div class="loginContainer" id="card">
-        <div class="login">
-            <h2>Login</h2>
-            <div class="inputContainerStyle">
-                <label for="emailLogin" class="inputLabel">Email:</label>
-                <input id="emailLogin" type="email" class="inputStyle">
-                <button class="clearbutton">x</button>
+    <div id="infoWrapper">
+        <p>Wrong email or password entered...</p>
+    </div>
+    <div id="main-wrapper">
+        <div class="loginContainer" id="card">
+            <div class="login">
+                <h2>Login</h2>
+                <div class="inputContainerStyle">
+                    <label for="emailLogin" class="inputLabel">Email:</label>
+                    <input id="emailLogin" type="email" class="inputStyle" required>
+                    <button class="clearbutton">x</button>
+                </div>
+                <div class="inputContainerStyle">
+                    <label for="passwordLogin" class="inputLabel">Password:</label>
+                    <input id="passwordLogin" type="password" class="inputStyle" required>
+                    <button class="clearbutton">x</button>
+                </div>
+                <div class="checkboxContainer">
+                    <label for="showPasswordCBLogin">Show password?</label>
+                    <input type="checkbox" name="showPassword" id="showPasswordCBLogin">
+                </div>
+                <div class="loginOptionContainer">
+                    <button id="loginButton">Log in</button>
+                    <p class="flipTrigger">New user? Register now -></p>
+                </div>
             </div>
-            <div class="inputContainerStyle">
-                <label for="passwordLogin" class="inputLabel">Password:</label>
-                <input id="passwordLogin" type="password" class="inputStyle">
-                <button class="clearbutton">x</button>
-            </div>
-            <div class="checkboxContainer">
-                <label for="showPasswordCBLogin">Show password?</label>
-                <input type="checkbox" name="showPassword" id="showPasswordCBLogin">
-            </div>
-            <div class="loginOptionContainer">
-                <button id="loginButton">Log in</button>
-                <p class="flipTrigger">New user? Register now -></p>
-            </div>
-        </div>
-        <div class="signin">
-            <h2>Sign In</h2>
-            <div class="inputContainerStyle">
-                <label for="firstName" class="inputLabel">First Name</label>
-                <input id="firstName" type="text" class="inputStyle">
-                <button class="clearbutton">x</button>
-            </div>
-            <div class="inputContainerStyle">
-                <label for="lastName" class="inputLabel">Last Name</label>
-                <input id="lastName" type="text" class="inputStyle">
-                <button class="clearbutton">x</button>
-            </div>
-            <div class="inputContainerStyle">
-                <label for="emailRegister" class="inputLabel">Email:</label>
-                <input id="emailRegister" type="email" class="inputStyle">
-                <button class="clearbutton">x</button>
-            </div>
-            <div class="inputContainerStyle">
-                <label for="passwordRegister1" class="inputLabel">Enter password:</label>
-                <input id="passwordRegister1" type="password" class="inputStyle">
-                <button class="clearbutton">x</button>
-            </div>
-            <div class="inputContainerStyle">
-                <label for="passwordRegister2" class="inputLabel">Confirm password:</label>
-                <input id="passwordRegister2" type="password" class="inputStyle">
-                <button class="clearbutton">x</button>
-            </div>
-            <div class="checkboxContainer">
-                <label for="showPasswordCBRegister">Show password?</label>
-                <input type="checkbox" name="showPassword" id="showPasswordCBRegister">
-            </div>
-            <div class="loginOptionContainer">
-                <button id="registerButton">Register</button>
-                <p class="flipTrigger">Already an user. Login -></p>
+            <div class="signin">
+                <h2>Sign In</h2>
+                <div class="inputContainerStyle">
+                    <label for="firstName" class="inputLabel">First Name</label>
+                    <input id="firstName" type="text" class="inputStyle" required>
+                    <button class="clearbutton">x</button>
+                </div>
+                <div class="inputContainerStyle">
+                    <label for="lastName" class="inputLabel">Last Name</label>
+                    <input id="lastName" type="text" class="inputStyle" required>
+                    <button class="clearbutton">x</button>
+                </div>
+                <div class="inputContainerStyle">
+                    <label for="emailRegister" class="inputLabel">Email:</label>
+                    <input id="emailRegister" type="email" class="inputStyle" required>
+                    <button class="clearbutton">x</button>
+                </div>
+                <div class="inputContainerStyle">
+                    <label for="passwordRegister1" class="inputLabel">Enter password:</label>
+                    <input id="passwordRegister1" type="password" class="inputStyle" required>
+                    <button class="clearbutton">x</button>
+                </div>
+                <div class="inputContainerStyle">
+                    <label for="passwordRegister2" class="inputLabel">Confirm password:</label>
+                    <input id="passwordRegister2" type="password" class="inputStyle" required>
+                    <button class="clearbutton">x</button>
+                </div>
+                <div class="checkboxContainer">
+                    <label for="showPasswordCBRegister">Show password?</label>
+                    <input type="checkbox" name="showPassword" id="showPasswordCBRegister">
+                </div>
+                <div class="loginOptionContainer">
+                    <button id="registerButton">Register</button>
+                    <p class="flipTrigger">Already an user. Login -></p>
+                </div>
             </div>
         </div>
     </div>

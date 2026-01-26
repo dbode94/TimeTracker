@@ -1,3 +1,4 @@
+
 //============================================================================================
 // Getting elements
 //============================================================================================
@@ -20,7 +21,6 @@ let inLogin = true;
 //============================================================================================
 // Defining functions
 //============================================================================================
-
 const toggleElementClass = (e, tag, className) => {
     const elementSiblings = e.target.parentElement.children
     for (let i = 0; i < elementSiblings.length; i++) {
@@ -51,6 +51,70 @@ const removeElementClass = (e, tag, className) => {
     }
 }
 
+/**
+ * Makes toast like message appear
+ * Use <br> in message for new line.
+ * @param {String} message 
+ * @param {'error'|'good'|'info'} status 
+ */
+const showMessage = (message, status) => {
+    const infoWrapper = document.getElementById('infoWrapper');
+    infoWrapper.children[0].innerHTML = message;
+
+    let animationClassName = 'slideInLeft';
+    let messageTypeClassName = '';
+    
+    switch(status.toLowerCase()){
+        case 'error':
+            messageTypeClassName = 'errorMessage'
+            break;
+        case 'good':
+            messageTypeClassName = 'goodMessage'
+            break;
+        case 'info':
+            messageTypeClassName = 'infoMessage'
+            break;
+        default:
+            messageTypeClassName = 'defaultMessage'
+            break;
+    }
+
+    infoWrapper.classList.add(messageTypeClassName);
+    infoWrapper.classList.add(animationClassName);
+
+    setTimeout(() => {
+        infoWrapper.classList.remove(messageTypeClassName)
+        infoWrapper.classList.remove(animationClassName)
+    }, 5000)
+}
+
+/**
+ * attaches the animation class
+ */
+const wrongCredentialAnimation = () => {
+    const mainWrapper = document.getElementById('main-wrapper');
+    const loginContainer = document.getElementsByClassName('loginContainer')[0];
+    mainWrapper.classList.add('shake-rotate');
+    loginContainer.classList.add('flicker-red');
+
+    setTimeout(() => {
+        mainWrapper.classList.remove('shake-rotate');
+        loginContainer.classList.remove('flicker-red');
+    }, 500);
+}
+
+/**
+ * Returns false if the format is not valid.
+ * @param {String} email 
+ */
+const isValidEmailFormat = (email) =>  email.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/);
+
+
+/**
+ * Returns false if the format is not valid.
+ * @param {String} password 
+ */
+const isValidPasswordFormat= (password) => password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/);
 
 //============================================================================================
 // Defining Event Handlers
@@ -104,29 +168,96 @@ const clearInputHandler = (e) => {
 
 
 const loginHandler = () => {
+    const email = document.getElementById('emailLogin').value;
+    const password = document.getElementById('passwordLogin').value;
+    
+    if(!email || !password) {
+        wrongCredentialAnimation(); 
+        showMessage('Email and password cannot be blank.','error');
+    }
+
     fetch('http://localhost:3000/login/signin', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            email: 'email@somewhere.com',
-            password: 'thisShouldBeEncrypted'
+            email: email,
+            password: password
         })
     })
-    .then(res => {console.log(res)})
+    .then(res => {
+        if(!res.ok){
+            wrongCredentialAnimation();
+            showMessage('Wrong email or password...', 'error');
+        }
+        else{
+            showMessage('Welcome back !!!', 'good');
+            setTimeout(()=>{window.location.href="/app"}, 1000) 
+        }
+    })
+    .catch(err => {
+        showMessage('Upps...something went wrong...', 'info');
+    })
 }
 
 const registerHandler = () => {
-    fetch('http://localhost:3000/login/register', {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            firstName: 'Dennis',
-            lastName: 'Bode',
-            email: 'email@somewhere.com',
-            password: 'thisShouldBeEncrypted'
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('emailRegister').value;
+    const password1 = document.getElementById('passwordRegister1').value;
+    const password2 = document.getElementById('passwordRegister2').value;
+
+
+    if(!firstName || !lastName || !email || !password1 || !password2){
+        wrongCredentialAnimation();
+        showMessage('All fields most be filled !', 'error');
+    }
+    else if(!isValidEmailFormat(email)){
+        wrongCredentialAnimation();
+        showMessage('Wrong email format... <br>example: example@domain.com', 'info');
+    }
+    else if(!isValidPasswordFormat(password1)){
+        wrongCredentialAnimation();
+        showMessage(
+            'Wrong password format...' + 
+            '<br> Password should complay with the following:' + 
+            '<br> * At least 8 characters long' + 
+            '<br> * At least 1 special characters' +
+            '<br> * At least 1 upper case character' +
+            '<br> * At least 1 lower case characters' +
+            '<br> * At least 1 number' 
+            , 'info');
+    }
+    else if(password1 != password2){
+        wrongCredentialAnimation();
+        showMessage('Passwords does not match...', 'error');
+    }
+    else{
+        fetch('http://localhost:3000/login/register', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password1
+            })
         })
-    })
-    .then(res => {console.log(res.status)})
+        .then(res => {
+            if(!res.ok){
+                console.log(res.json())
+                showMessage('Email is already in use...', 'error');
+                wrongCredentialAnimation();
+            }
+            else{
+                showMessage('Hi ' + firstName + '. Welcome in !!!', 'good');
+                setTimeout(()=>{window.location.href="/app"}, 1000) 
+            }
+        })
+        .catch(error => showMessage('Upps...something went wrong...', 'info'))
+    }
+
+
+
 }
 
 
