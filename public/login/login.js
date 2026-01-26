@@ -1,3 +1,4 @@
+
 //============================================================================================
 // Getting elements
 //============================================================================================
@@ -51,7 +52,8 @@ const removeElementClass = (e, tag, className) => {
 }
 
 /**
- * 
+ * Makes toast like message appear
+ * Use <br> in message for new line.
  * @param {String} message 
  * @param {'error'|'good'|'info'} status 
  */
@@ -86,6 +88,9 @@ const showMessage = (message, status) => {
     }, 5000)
 }
 
+/**
+ * attaches the animation class
+ */
 const wrongCredentialAnimation = () => {
     const mainWrapper = document.getElementById('main-wrapper');
     const loginContainer = document.getElementsByClassName('loginContainer')[0];
@@ -97,6 +102,19 @@ const wrongCredentialAnimation = () => {
         loginContainer.classList.remove('flicker-red');
     }, 500);
 }
+
+/**
+ * Returns false if the format is not valid.
+ * @param {String} email 
+ */
+const isValidEmailFormat = (email) =>  email.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/);
+
+
+/**
+ * Returns false if the format is not valid.
+ * @param {String} password 
+ */
+const isValidPasswordFormat= (password) => password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/);
 
 //============================================================================================
 // Defining Event Handlers
@@ -154,7 +172,7 @@ const loginHandler = () => {
     const password = document.getElementById('passwordLogin').value;
     
     if(!email || !password) {
-        wrongCredentialAnimation();
+        wrongCredentialAnimation(); 
         showMessage('Email and password cannot be blank.','error');
     }
 
@@ -192,6 +210,22 @@ const registerHandler = () => {
     if(!firstName || !lastName || !email || !password1 || !password2){
         wrongCredentialAnimation();
         showMessage('All fields most be filled !', 'error');
+    }
+    else if(!isValidEmailFormat(email)){
+        wrongCredentialAnimation();
+        showMessage('Wrong email format... <br>example: example@domain.com', 'info');
+    }
+    else if(!isValidPasswordFormat(password1)){
+        wrongCredentialAnimation();
+        showMessage(
+            'Wrong password format...' + 
+            '<br> Password should complay with the following:' + 
+            '<br> * At least 8 characters long' + 
+            '<br> * At least 1 special characters' +
+            '<br> * At least 1 upper case character' +
+            '<br> * At least 1 lower case characters' +
+            '<br> * At least 1 number' 
+            , 'info');
     }
     else if(password1 != password2){
         wrongCredentialAnimation();

@@ -52,6 +52,7 @@ body{
 
 #infoWrapper p {
     font-size: 8pt;
+    line-height: 1.5;
 }
 
 .slideInLeft{
@@ -150,6 +151,10 @@ h2{
 
 .inputStyle:focus{
     outline: none;
+}
+
+inputStyle:is(:-webkit-autofill, :autofill) {
+  border: 3px solid darkorange;
 }
 
 
