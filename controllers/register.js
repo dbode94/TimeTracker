@@ -23,7 +23,7 @@ export function registerUser(db,req,res) {
       await signInWithEmailAndPassword(auth, email, password);
       //Create the user document
       const setDocResponse = await setDoc(doc(db,"users", uid), document);
-      
+      req.session.userId = uid;
       res.status(200).json('Registration complete');
       
     } catch(error){

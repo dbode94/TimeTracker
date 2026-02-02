@@ -1,8 +1,4 @@
 class StopWatch {
-    //TODO:
-    // FIX peekAtTimer after the clock has been stopped
-
-
     /**
      * Expects a Date, if starting anew then dont pass a value
      * @param {Date} time 
@@ -49,11 +45,6 @@ class StopWatch {
     }
 }
 
-/*
-TODO:
-    - Create a state app class for global variables and organization
-*/
-
 //============================================================================================
 // Rendering and initializing app state
 //============================================================================================
@@ -77,16 +68,24 @@ let intervalID;
 
 /*
 TODO: 
-    1- Fetch all timers and total time                                                     ❌
     2- Get UL Element and add each child with proper structure                             ❌
         <li id="id">
             <p><strong>>> </strong>Report Tracker</p>
             <p class="totalTime">total: 250h</p>
         </li>
-    3- the ID is necessary for updating the time in the db
 */
 let populateTimers = () => {
-    
+    fetch('http://localhost:3000/app/getAllTimers', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => {
+        if(res.ok){
+            console.log(res.json())
+        }
+        else console.error(res)
+    })
+    .catch(error => console.error('Error requesting:', error))
 }
 
 
@@ -233,4 +232,4 @@ addTimer.addEventListener('focusout', addTimerFocushandler);
 start.addEventListener('click', startPauseHandler);
 stop.addEventListener('click', stopHandler);
 alertButton.addEventListener('click', closeAlertHandler);
-
+populateTimers();

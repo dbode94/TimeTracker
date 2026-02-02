@@ -7,8 +7,8 @@ export function signinUser(db, req, res) {
   signInWithEmailAndPassword(auth, email, password)
   .then((Credential) => Credential.user.uid)
   .then((uId) => {
+    req.session.userId = uId;
     res.status(200).json('user logged in successfully')
   })
   .catch(error => res.status(400).json('Unable to log in'))
-  
 }
