@@ -50,7 +50,7 @@ class StopWatch {
 //============================================================================================
 let header = document.getElementById('currentTimerName');
 let warning = document.getElementById('warningMessage');
-let timers = document.getElementById('list').getElementsByTagName('li');
+let timeList = document.getElementById('list')
 let help = document.getElementById('help');
 let helpText = document.getElementById('helpText');
 let addTimer = document.getElementById('addTimer');
@@ -66,6 +66,9 @@ let sWatch = new StopWatch();
 let intervalID;
 
 
+//============================================================================================
+// Utilities Functions
+//============================================================================================
 /*
 TODO: 
     2- Get UL Element and add each child with proper structure                             ❌
@@ -80,9 +83,21 @@ let populateTimers = () => {
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => {
-        if(res.ok){
-            console.log(res.json())
-        }
+        if(res.ok)
+            res.json().then(timersCollection => {
+                timersCollection.forEach(timer => {
+                    let liElement = document.createElement('li');
+                    liElement.id = timer.id;
+                    liElement.innerHTML= "<p><strong>>> </strong>" + timer.timerName +"</p>" +
+                                         "<p class='totalTime'>total:" + timer.totalTime +"h</p>";
+                    timeList.appendChild(liElement);
+                });
+
+
+                let timers = timeList.getElementsByTagName('li');
+                for (let i = 0; i < timers.length; i++)
+                    timers[i].addEventListener('click', timersOnClickHandler);
+            })
         else console.error(res)
     })
     .catch(error => console.error('Error requesting:', error))
@@ -221,8 +236,6 @@ let stopHandler = () => {
 //============================================================================================
 // Adding Event Listeners
 //============================================================================================
-for (let i = 0; i < timers.length; i++)
-    timers[i].addEventListener('click', timersOnClickHandler);
 
 help.addEventListener('mouseover', showHelpHandler);
 help.addEventListener('mouseout', hideHelpHandler);
@@ -232,4 +245,7 @@ addTimer.addEventListener('focusout', addTimerFocushandler);
 start.addEventListener('click', startPauseHandler);
 stop.addEventListener('click', stopHandler);
 alertButton.addEventListener('click', closeAlertHandler);
+
 populateTimers();
+
+
