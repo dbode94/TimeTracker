@@ -5,10 +5,13 @@ import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import express from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
+import Valkey from "iovalkey"
+import connectIORedis from "connect-ioredis"
 
 //Importing Controllers
 import {registerUser} from "./controllers/register.js";
 import {signinUser} from "./controllers/signin.js";
+import {getAllTimers} from './controllers/getAllTimers.js'
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -25,14 +28,19 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const app = express();
+const ioRedisStore = connectIORedis({session});
+const valkey = new Valkey(process.env.VALKEY_URL);
+
+valkey.on('error', (error) => console.error('Valkey client error:', error));
+
+
 
 //============================================================================================
 // Controllers
 //============================================================================================
 function isLoggedIn(req) {
-  return !!req.session?.user;
+  return !!req.session?.userId;
 }
-
 
 
 //============================================================================================
@@ -41,22 +49,35 @@ function isLoggedIn(req) {
 app.use( session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new ioRedisStore({
+    client: valkey,
+    prefix: 'sess:'
+  }),
+  cookie: {
+    httpOnly:true,
+    sameSite:"lax",
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+  }
 }));
+
 
 app.use(bodyParser.json());
 
+function requireAuthMiddleware(req, res, next){
+  return isLoggedIn(req)? next(): res.redirect('/login');
+}
+  
 
 //============================================================================================
 // Routing
 //============================================================================================
 app.use('/login', express.static('public//login'));
-app.use('/app', express.static('public//app'));
 
 // Redirecting depending on Auth
-app.get('/', (req,res) => {
-  return isLoggedIn(req)? res.redirect('app') : res.redirect('login');
-})
+app.use('/app', requireAuthMiddleware, express.static('public//app'));
+app.get('/', (req,res) => {return isLoggedIn(req)? res.redirect('/app') : res.redirect('/login');})
 
 
 //============================================================================================
@@ -64,6 +85,7 @@ app.get('/', (req,res) => {
 //============================================================================================
 app.post('/login/signin', (req, res) => {signinUser(db, req, res)})
 app.post('/login/register', (req, res) => {registerUser(db, req, res)})
+app.get('/app/getAllTimers', (req, res) => {getAllTimers(db, req, res)})
 
 
 
