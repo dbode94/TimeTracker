@@ -78,6 +78,8 @@ TODO:
         </li>
 */
 let populateTimers = () => {
+    const now = new Date();
+    
     fetch('http://localhost:3000/app/getAllTimers', {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -86,13 +88,20 @@ let populateTimers = () => {
         if(res.ok)
             res.json().then(timersCollection => {
                 timersCollection.forEach(timer => {
+                    const {id, timerName, totalTime, lastModified } = timer;
+                    const lastModifiedDate = new Date(lastModified);
+
+                    const dateDiffInSecs = (now-lastModifiedDate)/1000;
+
+                    const daysDiff = Math.floor((dateDiffInSecs/ 86400) % 30).toString() + 'd';
+                    const hoursDiff = Math.floor((dateDiffInSecs/ 3600) % 24).toString() + 'h';
+
                     let liElement = document.createElement('li');
-                    liElement.id = timer.id;
-                    liElement.innerHTML= "<p><strong>>> </strong>" + timer.timerName +"</p>" +
-                                         "<p class='totalTime'>total:" + timer.totalTime +"h</p>";
+                    liElement.id = id;
+                    liElement.innerHTML= "<p><strong>>> </strong>" + timerName +"</p>" +
+                                         "<p class='totalTime'>Total:" + totalTime +"h<br>Last Modified:"+daysDiff +' '+ hoursDiff +"</p>";
                     timeList.appendChild(liElement);
                 });
-
 
                 let timers = timeList.getElementsByTagName('li');
                 for (let i = 0; i < timers.length; i++)
