@@ -1,4 +1,4 @@
-import {collection, getDocs} from 'firebase/firestore'
+import {collection, getDocs, Timestamp} from 'firebase/firestore'
 
 export function getAllTimers (db, req, res) {
     if(!!req.session?.userId) {
@@ -7,7 +7,12 @@ export function getAllTimers (db, req, res) {
         getDocs(collectionRef)
         .then((docs) => {
             const timers = [];
-            docs.forEach(doc => timers.push({...doc.data(), id: doc.id}))                    
+            docs.forEach(doc => {
+                const lastModified = new Timestamp(doc.data().lastModified.seconds, doc.data().lastModified.nanoseconds);
+                const lastModifiedDate = lastModified.toDate();
+                timers.push({...doc.data(),lastModified: lastModifiedDate, id: doc.id})
+            })                    
+            
             res.status(200).json(timers)
         })
         .catch((error) => res.status(400).json('Unable to fetch timers'))
